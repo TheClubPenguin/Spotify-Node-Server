@@ -10,7 +10,7 @@ const PORT = 8000;
 
 var client_id = 'bef9a70727a1459b8212f22465caad86';
 var client_secret = '03f9cecef6844e2caf66caac4b64723f';
-var redirect_uri = 'http://localhost:3000';
+var redirect_uri = 'http://localhost:8000/callback/';
 
 io.on('connection', (client) => {
   console.log('Connection Made')
@@ -18,11 +18,6 @@ io.on('connection', (client) => {
   client.on('join', (data) => {
     console.log(data);
   })
-})
-
-app.get('/', (request, response)=> {
-  console.log("Tried Connection")
-  response.send(status="200")
 })
 
 /**
@@ -54,7 +49,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email streaming';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -112,7 +107,7 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
+        res.redirect('http://localhost:3000/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -150,6 +145,11 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
+
+app.get('/', (request, response)=> {
+  console.log("Tried Connection")
+  response.send(status="200")
+})
 
 server.listen(PORT, () => {
   console.log(`The server is running on port ${PORT}.`);
