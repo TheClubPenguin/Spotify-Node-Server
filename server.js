@@ -1,21 +1,24 @@
 const express = require("express");
 const app = express();
 const server = require('http').createServer(app);
+
 const io = require('socket.io')(server);
+
 const PORT = 8000;
 
-io.on('connection', (client) => {
+let chat = io.of('/chat')
+  .on('connection', (socket) => {
   console.log('Connection Made')
-  // console.log(client)
-  client.on('join', (data) => {
-    console.log(data);
+  
+  socket.broadcast.emit('message', 'connected')
+  
+  socket.on('send-message', (data) => {
+    console.log(data)
+    chat.emit('message', data)
   })
 })
 
-app.get('/', (request, response)=> {
-  console.log("Tried Connection")
-  response.send(status="200")
-})
+
 
 
 server.listen(PORT, () => {
