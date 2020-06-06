@@ -5,18 +5,25 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const app = express();
 const server = require('http').createServer(app);
+
 const io = require('socket.io')(server);
+
 const PORT = 8000;
 
 var client_id = 'bef9a70727a1459b8212f22465caad86';
 var client_secret = '03f9cecef6844e2caf66caac4b64723f';
 var redirect_uri = 'http://localhost:8000/callback/';
 
-io.on('connection', (client) => {
+
+let chat = io.of('/chat')
+  .on('connection', (socket) => {
   console.log('Connection Made')
-  // console.log(client)
-  client.on('join', (data) => {
-    console.log(data);
+  
+  socket.broadcast.emit('message', 'connected')
+  
+  socket.on('send-message', (data) => {
+    console.log(data)
+    chat.emit('message', data)
   })
 })
 
@@ -150,6 +157,7 @@ app.get('/', (request, response)=> {
   console.log("Tried Connection")
   response.send(status="200")
 })
+
 
 server.listen(PORT, () => {
   console.log(`The server is running on port ${PORT}.`);
