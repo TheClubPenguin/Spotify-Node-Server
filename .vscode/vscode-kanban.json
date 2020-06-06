@@ -1,9 +1,6 @@
 {
   "done": [],
-  "in-progress": [],
-  "other": [],
-  "testing": [],
-  "todo": [
+  "in-progress": [
     {
       "creation_time": "2020-05-30T20:23:36.944Z",
       "description": {
@@ -29,17 +26,6 @@
     },
     {
       "category": "Featiure",
-      "creation_time": "2020-05-30T20:59:01.090Z",
-      "description": {
-        "content": "Using the Socket be able to have chat functionality",
-        "mime": "text/markdown"
-      },
-      "id": "3",
-      "references": [],
-      "title": "Chat Over Socket"
-    },
-    {
-      "category": "Featiure",
       "creation_time": "2020-05-30T21:06:41.335Z",
       "description": {
         "content": "Use the user's account data to display in chat.",
@@ -48,6 +34,21 @@
       "id": "4",
       "references": [],
       "title": "Collect User Data"
+    }
+  ],
+  "other": [],
+  "testing": [],
+  "todo": [
+    {
+      "category": "Featiure",
+      "creation_time": "2020-05-30T20:59:01.090Z",
+      "description": {
+        "content": "Using the Socket be able to have chat functionality",
+        "mime": "text/markdown"
+      },
+      "id": "3",
+      "references": [],
+      "title": "Chat Over Socket"
     },
     {
       "category": "Featiure",
